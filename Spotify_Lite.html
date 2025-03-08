@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Lite</title>
+    <link rel="stylesheet" href="style.css"> <!-- External CSS for design -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon -->
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --primary-color:rgb(27, 27, 27);
+}
+
+nav {
+    background-color: #000000;
+    padding: 1em;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 1em;
+}
+
+nav ul li a {
+    font-weight: 600;
+    color: rgb(255, 254, 254);
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.links:hover{
+    background-color: #555;
+}
+
+.songs {
+    font-weight: 600;
+    background-color: var(--primary-color);
+    padding: 2em;
+    text-align: center;
+}
+
+#songs-box {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1em;
+}
+
+.song-item {
+    border: 2px solid rgb(33, 33, 33);
+    background-color: rgb(33, 33, 33);
+    color: white;
+    padding: 1em;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.song-item:hover {
+    background-color: #555;
+}
+
+.audio-player {
+    padding: 2em;
+    text-align: center;
+    background-color: var(--primary-color);
+    border-top: 2px solid #ddd;
+}
+
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+h2{
+    color:white;
+}
+.links{
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+}
+#logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li id="logo">
+                <img src="Spotify-logo.png" alt="Spotify Logo" width="50px" height="50px" href="https://spotify.com/">
+                <a href="https://spotify.com/">Spotify Lite</a>
+            </li>
+            <li class="links">
+                <a href="/">Home</a>
+            </li>
+            <li class="links">
+                <a href="/songs">Songs</a>
+            </li>
+            <li class="links">
+                <a href="/about">About</a>
+            </li>
+            <li class="links">
+                <a href="/contact">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Songs Box -->
+    <section class="songs">
+        <h2>Featured Songs</h2>
+        <div id="songs-box">
+            <!-- Songs will be dynamically added here -->
+        </div>
+    </section>
+
+    <!-- Audio Player -->
+    <section class="audio-player">
+        <h2>Now Playing: <span id="song-title">No song selected</span></h2>
+        <audio id="audio-player" controls>
+            <source id="audio-source" src="" type="video/mp4">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 SpotifyLite. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script> <!-- External JS for functionality -->
+    <script>
+         // Define your songs
+ const songs = [
+    { title: "Tere sang yara", file: "Tere sang yara.mp4"},
+    { title: "Song 2", file: "songs/song2.mp3" },
+    { title: "Song 3", file: "songs/song3.mp3" },
+];
+
+// Get elements
+const songsBox = document.getElementById('songs-box');
+const audioPlayer = document.getElementById('audio-player');
+const audioSource = document.getElementById('audio-source');
+const songTitle = document.getElementById('song-title');
+
+// Create song elements dynamically
+songs.forEach(song => {
+    const songItem = document.createElement('div');
+    songItem.classList.add('song-item');
+    songItem.innerText = song.title;
+
+    // Event listener for song click
+    songItem.addEventListener('click', () => {
+        playSong(song);
+    });
+
+    songsBox.appendChild(songItem);
+});
+
+// Play the selected song
+function playSong(song) {
+    // Change audio source and title
+    audioSource.src = song.file;
+    songTitle.innerText = song.title;
+
+    // Play the song
+    audioPlayer.load();
+    audioPlayer.play();
+}
+</script>
+</body>
+
+</html>
